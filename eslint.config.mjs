@@ -19,10 +19,20 @@ export default defineConfig([
   // 🌐 Code frontend (browser)
   {
     files: ["src/**/*.js"],
-    plugins: { js },
-    extends: ["js/recommended"],
+    // ... ta config existante ...
     languageOptions: {
       globals: globals.browser,
+    },
+  },
+
+  // 👇 AJOUTE CE BLOC ICI 👇
+  // 🧪 Tests Jest
+  {
+    files: ["**/*.test.js", "**/*.spec.js", "src/test_dev.js"], // Ajoute ici tes fichiers de test
+    languageOptions: {
+      globals: {
+        ...globals.jest, // Cela apprend à ESLint ce que sont 'test', 'expect', 'describe', etc.
+      },
     },
   },
 ]);
