@@ -1,1 +1,36 @@
-<head><script defer src="main.js"></script></head>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battleship</title>
+<script defer src="main.js"></script></head>
+
+<body>
+    <div class="header">
+        <h1 class="header-title">Battleship</h1>
+    </div>
+    <div class="control-panel">
+        <div id="choose-player">
+            <button class="pvp">Player vs Player</button>
+            <button class="pve">Player vs Computer</button>
+        </div>
+    </div>
+    <div class="game-area">
+        <div id="grid-left">
+
+        </div>
+        <div id="grid-right">
+
+        </div>
+    </div>
+    <div class="ship-dock">
+        <button class="boat-type" data-length="5">Aircraft Carrier (5)</button>
+        <button class="boat-type" data-length="4">Battleship (4)</button>
+        <button class="boat-type" data-length="3">Cruiser (3)</button>
+        <button class="boat-type" data-length="2">Submarine (2)</button>
+    </div>
+</body>
+
+</html>
