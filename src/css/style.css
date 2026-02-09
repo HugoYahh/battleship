@@ -1,50 +1,45 @@
 @import './components/wavy-title.css';
-/* 1. Use a more-intuitive box-sizing model */
+
+/* =========================================
+   1. RESET & BASE STYLES
+   ========================================= */
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
-/* 2. Remove default margin */
 * {
     margin: 0;
 }
 
-/* 3. Enable keyword animations */
 @media (prefers-reduced-motion: no-preference) {
     html {
         interpolate-size: allow-keywords;
     }
 }
 
-:root{
-    --bg:#1B65A6;
-    --text:#1c1c1c;
-    --button:#A7D5F2;
-    --grid:#A7D5F2;
+:root {
+    --bg: #1B65A6;
+    --text: #1c1c1c;
+    --button: #A7D5F2;
+    --grid: #A7D5F2;
 }
 
-html,body{
+html,
+body {
     height: 100%;
     margin: 0;
-}
-
-.container-main-game{ 
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-    
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text);
 }
 
 body {
-    /* 4. Add accessible line-height */
     line-height: 1.5;
-    /* 5. Improve text rendering */
     -webkit-font-smoothing: antialiased;
 }
 
-/* 6. Improve media defaults */
 img,
 picture,
 video,
@@ -54,7 +49,6 @@ svg {
     max-width: 100%;
 }
 
-/* 7. Inherit fonts for form controls */
 input,
 button,
 textarea,
@@ -62,7 +56,6 @@ select {
     font: inherit;
 }
 
-/* 8. Avoid text overflows */
 p,
 h1,
 h2,
@@ -73,7 +66,6 @@ h6 {
     overflow-wrap: break-word;
 }
 
-/* 9. Improve line wrapping */
 p {
     text-wrap: pretty;
 }
@@ -87,212 +79,355 @@ h6 {
     text-wrap: balance;
 }
 
-/*
-  10. Create a root stacking context
-*/
 #root,
 #__next {
     isolation: isolate;
 }
 
-/* Style de base pour tous les boutons */
+/* =========================================
+   2. COMPOSANTS UI (Boutons, Inputs)
+   ========================================= */
+
+/* --- BOUTONS --- */
 button,
 .btn {
-    background-color: #3498db;
-    /* Bleu moderne */
-    color: white;
-    /* Texte blanc */
+    background-color: var(--button);
+    /* Utilisation de ta variable */
+    color: #1c1c1c;
+    /* Texte foncé pour contraste avec bleu clair */
     border: none;
-    /* Pas de bordure */
     border-radius: 8px;
-    /* Coins arrondis */
     padding: 0.75em 1.5em;
-    /* Taille confortable */
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition:
-        background-color 0.2s ease,
-        transform 0.15s ease,
-        box-shadow 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    /* Ombre légère */
 }
 
-/* Survol : un peu plus sombre + légère élévation */
 button:hover,
 .btn:hover {
-    background-color: #2980b9;
+    filter: brightness(0.9);
+    /* Assombrit légèrement au survol */
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Quand cliqué : léger enfoncement */
 button:active,
 .btn:active {
     transform: translateY(1px) scale(0.98);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Accessibilité : focus au clavier */
 button:focus-visible,
 .btn:focus-visible {
     outline: 3px solid #82caff;
     outline-offset: 3px;
 }
 
+/* Classe utilitaire pour la sélection (PvP / PvE) */
+.selected {
+    background-color: #12426c !important;
+    /* Bleu foncé */
+    color: white !important;
+    border: 2px solid white;
+    transform: scale(1.05);
+}
+
+/* --- INPUTS --- */
 input {
-    /* 1. Le Reset */
     appearance: none;
-    border: none;
     outline: none;
-
-    /* 2. Le Nouveau Design */
     background-color: #f0f2f5;
-    /* Gris très clair */
     padding: 12px 15px;
-    /* Espace interne confortable */
     border-radius: 8px;
-    /* Coins arrondis */
     width: 100%;
-    /* Prend toute la largeur dispo */
-
-    /* Texte */
     font-family: inherit;
     font-size: 1rem;
     color: #333;
     font-weight: bold;
-
-    /* Transition douce pour le clic */
     transition: all 0.2s ease;
     border: 2px solid transparent;
-    /* Bordure invisible prête à apparaître */
 }
 
-/* Effet quand on clique dedans */
 input:focus {
     background-color: white;
     border-color: #3b6da7;
-    /* Le bleu de ton thème */
     box-shadow: 0 0 0 4px rgba(59, 109, 167, 0.2);
-    /* Petit halo bleu */
 }
 
-/*END OF RESET*/
-
-.cell {
-    width: 100%;
-    height: 100%;
-
-    border: 1px solid rgba(167, 213, 242, 0.3);
-    background-color: var(--grid);
-   
-    cursor: crosshair;
-
-    transition: all 0.2s ease;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-}
-
-.container-main-game{
-    color:var(--text);
-    font-family: Montserrat,sans-serif;
-    background-image: url('../assets/images/bg-image.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
-.start-screen-container{
-    background-image: url('../assets/images/bg-image.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: var(--text);
-    font-family: Montserrat, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.start-screen-content{
-    background-color: var(--bg);
-    opacity: 99%;
-    display: flex;
-    border: 2px solid black;
-    flex-direction: column;
-    padding: 1em;
-    border-radius: 24px;
-    gap: 1em;
-    font-weight: 600;
-}
-
-.header{
-    display: flex;
-    justify-content: center;
-    padding: 1em 0em;
-    font-size: 2em;
-}
-
-#hidden{
-    display: none;
-}
-
-.control-panel{
-    display: flex;
-    justify-content: center;
-}
-
-#choose-player{
-    display: flex;
-    gap: 1em;
-}
-
-#consigne{
-    display: none;
-}
-
-
-button{
-    background-color: var(--button);
-}
-
-.game-area{
-    display: flex;
-    justify-content: center;
-    justify-content: space-around;
-}
-
-#grid-left, #grid-right{
-    display: grid;
-    grid-template-columns: repeat(10,40px);
-    grid-template-rows: repeat(10,40px);
-    border: 4px solide gray;
-}
-
-.ship-dock{
-    display: flex;
-    justify-content: center;
-    margin:auto;
-    gap: 1em;
-}
-
-.input-group{
+.input-group {
     display: flex;
     gap: 0.5em;
     flex-direction: column;
 }
 
-.selected{
-    
-    background-color: #12426c;
-    color: white;
-    border: 2px solid white;
+/* =========================================
+   3. ÉLÉMENTS DU JEU (Grille, Cellules)
+   ========================================= */
+
+.cell {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(167, 213, 242, 0.15);
+    border: none;
+    border-radius: 4px;
+    position: relative;
+}
+
+#grid-left,
+#grid-right {
+    display: grid;
+    grid-template-columns: repeat(10, 35px);
+    grid-template-rows: repeat(10, 35px);
+    gap: 2px;
+
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(167, 213, 242, 0.3);
+}
+
+.cell:hover {
+    background-color: rgba(167, 213, 242, 0.5);
+    box-shadow: 0 0 10px #A7D5F2;
+    /* Lueur */
     transform: scale(1.05);
+    /* Petit zoom */
+    z-index: 10;
+}
+
+/* Case Touchée (Explosion) */
+.cell.hit {
+    background-color: rgba(231, 76, 60, 0.8) !important;
+    box-shadow: 0 0 15px #e74c3c;
+    animation: pulse 2s infinite;
+}
+
+/* Case Ratée (Plouf) */
+.cell.miss {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+    }
+}
+
+/* =========================================
+   4. ÉCRAN D'ACCUEIL (START SCREEN)
+   ========================================= */
+
+.start-screen-container {
+    background-image: url('../assets/images/bg-image.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.start-screen-content {
+    /* La Carte */
+    background-color: var(--bg);
+    opacity: 0.99;
+    border: 2px solid black;
+    border-radius: 24px;
+    padding: 2em;
+    /* Un peu plus d'espace */
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-weight: 600;
+}
+
+#choose-player {
+    display: flex;
+    gap: 1em;
+}
+
+#p2-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+/* =========================================
+   5. ÉCRAN DE JEU (MAIN GAME)
+   ========================================= */
+
+/* Le parent : Il sert de fond et de centreur (comme l'accueil) */
+.container-main-game {
+    /* Prend tout l'écran */
+    min-height: 100vh;
+    width: 100%;
+
+    /* Image de fond */
+    background-image: url('../assets/images/bg-image.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    /* CENTRE la carte au milieu */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* L'enfant : Devient une carte flottante */
+.main-game-content {
+    background-color: var(--bg);
+    opacity: 0.99;
+    border: 2px solid black;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+    /* TAILLE : S'adapte au contenu au lieu de prendre tout l'écran */
+    height: auto;
+    width: fit-content;
+    max-width: 95%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 0.5em 0em;
+    font-size: 2em;
+}
+
+.control-panel {
+    display: flex;
+    justify-content: center;
+}
+
+.control-panel {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#consigne {
+    background: rgba(18, 66, 108, 0.8);
+    /* Bleu très foncé */
+    border-left: 4px solid #A7D5F2;
+    /* Barre latérale "Info" */
+    padding: 15px 25px;
+    border-radius: 0 8px 8px 0;
+    width: 100%;
+    text-align: center;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.consigne {
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    /* Police style machine à écrire / code */
+    font-size: 1.2rem;
+    font-weight: normal;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+.game-area {
+    display: flex;
+    gap: 3rem;
+    /* Espace entre les plateaux */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ship-dock {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 1rem;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.boat-type {
+    background: transparent;
+    border: 2px solid var(--button);
+    color: var(--button);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    box-shadow: inset 0 0 0 0 var(--button);
+    transition: all 0.3s ease;
+}
+
+.boat-type:hover {
+    background: rgba(167, 213, 242, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Quand un bateau est sélectionné pour être placé */
+.boat-type.selected-ship {
+    background: var(--button);
+    color: #1B65A6;
+    /* Texte foncé sur fond clair */
+    box-shadow: 0 0 15px var(--button);
+    font-weight: bold;
+}
+
+/* Quand un bateau est placé (désactivé) */
+.boat-type.placed {
+    border-color: #555;
+    color: #555;
+    text-decoration: line-through;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.grid-left-package h3,
+.grid-right-package h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+}
+
+
+/* =========================================
+   6. UTILITAIRES
+   ========================================= */
+
+.hidden {
+    display: none !important;
+}
+
+#hidden {
+    display: none;
 }
