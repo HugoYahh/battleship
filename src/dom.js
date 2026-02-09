@@ -52,3 +52,39 @@ export function toggleScreen(hideClass, showClass) {
         console.warn(`Attention : Impossible de trouver l'élément à afficher (.${showClass})`);
     }
 }
+
+export function renderBoard(elementId,board,isEnemy=false){
+    const container = document.getElementById(elementId);
+    container.innerHTML="";
+    const grid = board.getBoard();
+    const missed = board.missedAttacks;
+    const hits = board.successfulHits;
+
+    for (let y = 0; y < 10; y++) {
+        for (let x = 0; x < 10; x++) {
+            const cellDiv = document.createElement("div");
+            cellDiv.classList.add("cell");
+            
+            cellDiv.dataset.x = x;
+            cellDiv.dataset.y = y;
+
+            const cellContent = grid[y][x]; 
+
+            if (cellContent !== null && !isEnemy) {
+                cellDiv.classList.add("ship");
+            }
+
+            const isHit = hits.some(h => h.x === x && h.y === y);
+            if (isHit) {
+                cellDiv.classList.add("hit");
+            }
+
+            const isMiss = missed.some(m => m.x === x && m.y === y);
+            if (isMiss) {
+                cellDiv.classList.add("miss");
+            }
+
+            container.appendChild(cellDiv);
+        }
+    }
+}

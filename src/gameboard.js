@@ -3,6 +3,7 @@ import {Ship} from './ship.js'
 export class Gameboard{
     constructor(){
         this.ships=[]
+        this.successfulHits = [];
         this.missedAttacks=[]
         this.board=Array(10).fill(null).map(()=> Array(10).fill(null));
     }
@@ -45,11 +46,17 @@ export class Gameboard{
     }
 
     receiveAttack(coordX,coordY){
-        if(this.getBoard()[coordY][coordX]!==null){
-            this.board[coordY][coordX].hit();
-        }
-        else{
-            this.missedAttacks.push({x:coordX,y:coordY});
+        const target = this.board[coordY][coordX];
+
+        if (target !== null) {
+            // C'est un bateau !
+            target.hit();
+            this.successfulHits.push({ x: coordX, y: coordY }); // ✅ On sauvegarde la coordonnée
+            return true; // Renvoie true pour dire "Touché"
+        } else {
+            // C'est de l'eau
+            this.missedAttacks.push({ x: coordX, y: coordY });
+            return false; // Renvoie false pour dire "Raté"
         }
     }
 
