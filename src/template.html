@@ -9,10 +9,9 @@
 
 <body>
 
-    <div class="start-screen-container" >
+    <div class="start-screen-container">
         <div class="start-screen-content">
             <div class="loader">
-                <span>BATTLESHIP</span>
                 <span>BATTLESHIP</span>
             </div>
             <div class="input-group">
@@ -23,9 +22,9 @@
                     <input type="text" id="p2" placeholder="Amiral..." value="">
                 </div>
             </div>
-    
+
             <p>Choose Gamemode :</p>
-    
+
             <div id="choose-player">
                 <button class="pvp btn">2 Player (Local)</button>
                 <button class="pve btn selected">Player vs Computer</button>
@@ -34,17 +33,25 @@
         </div>
     </div>
 
-    <div class="container-main-game hidden" >
+    <div class="container-main-game hidden">
         <div class="main-game-content">
             <div class="header">
                 <h1 class="header-title">Battleship Game !</h1>
             </div>
             <div class="control-panel">
-            
+
                 <div id="consigne">
                     <h2 class="consigne">Game starts ! Place your boats !</h2>
                 </div>
+
+                <div class="action-buttons" style="margin-top: 10px; display:flex; gap:10px; justify-content:center;">
+                    <button id="btn-next-player" class="btn hidden"
+                        style="background-color: #f1c40f; color: black;">Pass to Player 2</button>
+                    <button id="btn-play-again" class="btn hidden" style="background-color: #2ecc71;">Play
+                        Again</button>
+                </div>
             </div>
+
             <div class="game-area">
                 <div class="grid-left-package">
                     <h3>Player 1</h3>
@@ -57,12 +64,14 @@
                     </div>
                 </div>
             </div>
+
             <div class="ship-dock">
-                <button class="boat-type btn" data-length="5">Aircraft Carrier (5)</button>
-                <button class="boat-type btn" data-length="4">Battleship (4)</button>
-                <button class="boat-type btn" data-length="3">Cruiser (3)</button>
-                <button class="boat-type btn" data-length="3">Destroyer (3)</button>
-                <button class="boat-type btn" data-length="2">Submarine (2)</button>
+                <button id="btn-rotate" class="btn" style="margin-right: 15px;">Rotate (R)</button>
+                <button class="boat-type btn" id="aircraft" data-length="5">Aircraft Carrier (5)</button>
+                <button class="boat-type btn" id="battleship" data-length="4">Battleship (4)</button>
+                <button class="boat-type btn" id="cruiser" data-length="3">Cruiser (3)</button>
+                <button class="boat-type btn" id="destroyer" data-length="3">Destroyer (3)</button>
+                <button class="boat-type btn" id="submarine" data-length="2">Submarine (2)</button>
             </div>
         </div>
     </div>

@@ -8,28 +8,63 @@
 <script defer src="main.js"></script></head>
 
 <body>
-    <div class="header">
-        <h1 class="header-title">Battleship</h1>
-    </div>
-    <div class="control-panel">
-        <div id="choose-player">
-            <button class="pvp">Player vs Player</button>
-            <button class="pve">Player vs Computer</button>
-        </div>
-    </div>
-    <div class="game-area">
-        <div id="grid-left">
 
-        </div>
-        <div id="grid-right">
-
+    <div class="start-screen-container" >
+        <div class="start-screen-content">
+            <div class="loader">
+                <span>BATTLESHIP</span>
+                <span>BATTLESHIP</span>
+            </div>
+            <div class="input-group">
+                <label for="player-name-input">Your Name :</label>
+                <input type="text" id="player-name-input" placeholder="Amiral..." value="">
+                <div id="p2-group" class="hidden">
+                    <label for="p2">Player 2 Name :</label>
+                    <input type="text" id="p2" placeholder="Amiral..." value="">
+                </div>
+            </div>
+    
+            <p>Choose Gamemode :</p>
+    
+            <div id="choose-player">
+                <button class="pvp btn">2 Player (Local)</button>
+                <button class="pve btn selected">Player vs Computer</button>
+            </div>
+            <button id="btn-start-game" class="btn start">START</button>
         </div>
     </div>
-    <div class="ship-dock">
-        <button class="boat-type" data-length="5">Aircraft Carrier (5)</button>
-        <button class="boat-type" data-length="4">Battleship (4)</button>
-        <button class="boat-type" data-length="3">Cruiser (3)</button>
-        <button class="boat-type" data-length="2">Submarine (2)</button>
+
+    <div class="container-main-game hidden" >
+        <div class="main-game-content">
+            <div class="header">
+                <h1 class="header-title">Battleship Game !</h1>
+            </div>
+            <div class="control-panel">
+            
+                <div id="consigne">
+                    <h2 class="consigne">Game starts ! Place your boats !</h2>
+                </div>
+            </div>
+            <div class="game-area">
+                <div class="grid-left-package">
+                    <h3>Player 1</h3>
+                    <div id="grid-left">
+                    </div>
+                </div>
+                <div class="grid-right-package">
+                    <h3>Player 2</h3>
+                    <div id="grid-right">
+                    </div>
+                </div>
+            </div>
+            <div class="ship-dock">
+                <button class="boat-type btn" id="aircraft" data-length="5">Aircraft Carrier (5)</button>
+                <button class="boat-type btn" id="battleship" data-length="4">Battleship (4)</button>
+                <button class="boat-type btn" id="cruiser" data-length="3">Cruiser (3)</button>
+                <button class="boat-type btn" id="destroyer" data-length="3">Destroyer (3)</button>
+                <button class="boat-type btn" id="submarine" data-length="2">Submarine (2)</button>
+            </div>
+        </div>
     </div>
 </body>
 

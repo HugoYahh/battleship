@@ -1,34 +1,37 @@
-import {Ship} from './ship.js'
+import { Ship } from './ship.js';
 
-export class Gameboard{
-    constructor(){
-        this.ships=[]
+export class Gameboard {
+    constructor() {
+        this.ships = [];
+        this.missedAttacks = [];
         this.successfulHits = [];
-        this.missedAttacks=[]
-        this.board=Array(10).fill(null).map(()=> Array(10).fill(null));
+        this.board = Array(10).fill(null).map(() => Array(10).fill(null));
     }
 
-
-    placeShip(coordX, coordY, length, direction = "horizontal") {
-        // 1. VÉRIFICATION (On ne crée rien pour l'instant)
+    checkPlacement(x, y, length, direction) {
         if (direction === 'horizontal') {
-            for (let i = 0; i < length; i++) {
-                // On vérifie si la case est occupée OU si elle n'existe pas (hors limites)
-                if (this.board[coordY][coordX + i] !== null) {
-                    return; // Collision détectée : On annule tout !
-                }
-            }
-        } else if (direction === 'vertical') {
-            for (let i = 0; i < length; i++) {
-                if (this.board[coordY + i][coordX] !== null) {
-                    return; // Collision détectée : On annule tout !
-                }
-            }
+            if (x + length > 10) return false;
+        } else {
+            if (y + length > 10) return false;
         }
 
-        // 2. CRÉATION ET PLACEMENT (Seulement si on arrive ici)
+        for (let i = 0; i < length; i++) {
+            let currentX = x;
+            let currentY = y;
+
+            if (direction === 'horizontal') currentX += i;
+            else currentY += i;
+
+            if (this.board[currentY][currentX] !== null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    placeShip(coordX, coordY, length, direction = "horizontal") {
         let ship = new Ship(length);
-        this.ships.push(ship); // ✅ On l'ajoute maintenant qu'on est sûr
+        this.ships.push(ship);
 
         if (direction === 'horizontal') {
             for (let i = 0; i < length; i++) {
@@ -41,27 +44,40 @@ export class Gameboard{
         }
     }
 
-    getBoard(){
+    placeShipsRandomly() {
+        const fleet = [5, 4, 3, 3, 2];
+        fleet.forEach(length => {
+            let placed = false;
+            while (!placed) {
+                const x = Math.floor(Math.random() * 10);
+                const y = Math.floor(Math.random() * 10);
+                const orientation = Math.random() < 0.5 ? 'horizontal' : 'vertical';
+                
+                if (this.checkPlacement(x, y, length, orientation)) {
+                    this.placeShip(x, y, length, orientation);
+                    placed = true;
+                }
+            }
+        });
+    }
+
+    getBoard() {
         return this.board;
     }
 
-    receiveAttack(coordX,coordY){
+    receiveAttack(coordX, coordY) {
         const target = this.board[coordY][coordX];
-
         if (target !== null) {
-            // C'est un bateau !
             target.hit();
-            this.successfulHits.push({ x: coordX, y: coordY }); // ✅ On sauvegarde la coordonnée
-            return true; // Renvoie true pour dire "Touché"
+            this.successfulHits.push({ x: coordX, y: coordY });
+            return true;
         } else {
-            // C'est de l'eau
             this.missedAttacks.push({ x: coordX, y: coordY });
-            return false; // Renvoie false pour dire "Raté"
+            return false;
         }
     }
 
-    allSunk(){
+    allSunk() {
         return this.ships.every(ship => ship.isSunk());
     }
-
 }
